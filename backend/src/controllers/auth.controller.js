@@ -35,5 +35,35 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
-    res.send('login');
+    const { username, password } = req.body;
+
+    try {
+        const user = await User.findOne({
+            username
+        });
+
+        if(!user){
+            res.status(400).json({message: 'User not found'});
+        }
+
+        const matchPassword = await bcrypt.compare(password, user.password);
+
+        if(!matchPassword){
+            res.status(400).json({message: 'Invalid password'});
+        }
+
+        const token = await createToken({id: user._id});
+
+        const jsResult = {
+            username: user.username,
+            email: user.email,
+            id: user._id
+        }
+
+        res.header('auth-token', token)
+        res.status(201).json(jsResult);
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Error logging in', error });
+    }
 }
