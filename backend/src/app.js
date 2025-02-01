@@ -4,7 +4,7 @@ import morgan from 'morgan';
 
 const app = express();
 
-// Mensajes de consola
+// Mensajes de terminal para saber que está pasando
 app.use(morgan('dev'));
 
 export default app;
