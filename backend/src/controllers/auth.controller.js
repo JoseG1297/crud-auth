@@ -67,3 +67,13 @@ export const login = async (req, res) => {
         res.status(500).json({ message: 'Error logging in', error });
     }
 }
+
+
+export const logOut = async (req, res) => {
+    try {
+        res.header('auth-token', '');
+        res.status(200).json({message: 'User logged out'});
+    } catch (error) {
+        res.status(500).json({ message: 'Error logging out', error });
+    }
+}
