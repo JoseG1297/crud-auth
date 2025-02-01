@@ -8,15 +8,21 @@ export const register = async (req, res) => {
 
        const passwordHash = await bcrypt.hash(password, 10);
 
-        const user = await User.create({
+        const newUser =  new User({
+            username,
             email,
-            passwordHash,
-            username
+            password: passwordHash
         });
 
-        await user.save();
+        const user = await newUser.save();
 
-        res.status(201).json(user);
+        const jsResult = {
+            username: user.username,
+            email: user.email,
+            id: user._id
+        }
+
+        res.status(201).json(jsResult);
     } catch (error) {
         res.status(500).json({ message: 'Error registering user' , error});
     }
