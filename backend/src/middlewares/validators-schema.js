@@ -9,6 +9,6 @@ export const validateSchema = (schema) => (req, res, next) =>
         next()
     }
     catch(error){
-        res.status(httpStatus.BAD_REQUEST).json({ message: error.errors});
+        res.status(httpStatus.BAD_REQUEST).json({ message: error?.errors?.map((error) => error?.message)});
     }
 }
