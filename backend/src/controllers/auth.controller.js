@@ -79,3 +79,12 @@ export const logOut = async (req, res) => {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error logging out', error });
     }
 }
+
+export const profile = async(req, res) => {
+    try {
+        
+        res.status(httpStatus.OK).json({message: 'User Profile'});
+    } catch (error) {
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error logging out', error });
+    }
+}
