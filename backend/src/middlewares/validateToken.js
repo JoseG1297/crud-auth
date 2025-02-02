@@ -17,6 +17,7 @@ export const authRequired = async (req, res, next) => {
             return res.status(httpStatus.BAD_REQUEST).json({message: 'invalid token'});
         }
     
+        req.userData = tokenVerify;
         next()
     }
     catch (error) {

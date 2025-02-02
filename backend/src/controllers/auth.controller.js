@@ -82,9 +82,17 @@ export const logOut = async (req, res) => {
 
 export const profile = async(req, res) => {
     try {
+        const userData = req.userData;
+
+        const userFound = await User.findById(userData.id);
+
+        if(!userFound){
+            res.status(httpStatus.BAD_REQUEST).json({message: 'User not found'});
+        }
+
         
-        res.status(httpStatus.OK).json({message: 'User Profile'});
+        res.status(httpStatus.OK).json(userFound);
     } catch (error) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error logging out', error });
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error profile', error });
     }
 }
