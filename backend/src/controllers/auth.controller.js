@@ -29,7 +29,7 @@ export const register = async (req, res) => {
             id: user._id
         }
 
-        res.header('auth-token', token)
+        res.header('authToken', token)
         res.status(httpStatus.CREATED).json(jsResult);
     } catch (error) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error registering user' , error});
@@ -62,7 +62,7 @@ export const login = async (req, res) => {
             id: user._id
         }
 
-        res.header('auth-token', token)
+        res.header('authToken', token)
         res.status(httpStatus.CREATED).json(jsResult);
     }
     catch (error) {
@@ -73,7 +73,7 @@ export const login = async (req, res) => {
 
 export const logOut = async (req, res) => {
     try {
-        res.header('auth-token', '');
+        res.header('authToken', '');
         res.status(httpStatus.OK).json({message: 'User logged out'});
     } catch (error) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error logging out', error });
