@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import SweetAlert2 from "sweetalert2";
 
 import { useAuth } from "../context/AuthContext";
@@ -104,6 +104,11 @@ export const RegisterPage = () => {
           </button>
         </div>
       </form>
+        <div className="mt-4">
+            <Link to="/login" className="text-blue-500">
+            Already have an account? Login
+            </Link>
+        </div>
     </div>
   );
 };
