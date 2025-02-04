@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 import { registerService, loginService } from "../api/auth";
 
@@ -59,6 +59,15 @@ export const AuthProvider = ({ children }) => {
       setAuthErrors(error?.response?.data);
     }
   };
+
+  useEffect(() => {
+    if (authErrors) {
+      console.log('authErrors', authErrors);
+      setTimeout(() => {
+        setAuthErrors(null);
+      }, 3000);
+    }
+  }, [authErrors]);
 
   return (
     <AuthContext.Provider
