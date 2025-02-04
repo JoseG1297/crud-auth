@@ -11,7 +11,7 @@ export const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (data.password !== data.confirmPassword) {
       SweetAlert2.fire({
         icon: "error",
@@ -21,7 +21,7 @@ export const RegisterPage = () => {
       return;
     }
 
-    let res = registerService(data.username, data.email, data.password);
+    let res = await registerService(data.username, data.email, data.password);
     console.log(res);
   };
 
