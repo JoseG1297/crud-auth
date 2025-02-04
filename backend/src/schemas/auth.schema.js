@@ -19,9 +19,6 @@ export const registerSchema = z.object({
 });
 
 export const loginSchema = z.object({
-    username: z.string({
-        required_error: 'username is requiered'
-    }),
     password: z.string({
         required_error: 'password is requiered'
     }).

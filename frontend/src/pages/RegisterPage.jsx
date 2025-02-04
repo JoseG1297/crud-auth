@@ -12,7 +12,7 @@ export const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const { singUp, isAuthenticated, registerErrors } = useAuth();
+  const { registerUser, isAuthenticated, registerErrors } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const RegisterPage = () => {
       return;
     }
 
-    singUp(data);
+    registerUser(data);
   };
 
   return (

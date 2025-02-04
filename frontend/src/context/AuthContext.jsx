@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-import { registerService } from "../api/auth";
+import { registerService, loginService } from "../api/auth";
 
 export const AuthContext = createContext();
 
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [registerErrors, setRegisterErrors] = useState(null)
 
-  const singUp = async (data) => {
+  const registerUser = async (data) => {
     setIsAuthenticated(false);
     setRegisterErrors(null)
 
@@ -39,9 +39,31 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const singUp = async (data) => {
+    setIsAuthenticated(false);
+    setRegisterErrors(null)
+
+    try {
+      const response = await loginService(
+        data.email,
+        data.password
+      );
+      
+      if (response) {
+        console.log('sussces', response?.data);
+        setUser(response?.data);
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.log('errors', error?.response?.data);
+      setRegisterErrors(error?.response?.data);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
+        registerUser,
         singUp,
         user,
         isAuthenticated,
