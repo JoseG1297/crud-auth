@@ -12,7 +12,7 @@ export const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const { registerUser, isAuthenticated, registerErrors } = useAuth();
+  const { registerUser, isAuthenticated, authErrors } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,9 +38,9 @@ export const RegisterPage = () => {
     <div className="form-container bg-zinc-800 max-w-md mx-auto p-4 rounded-md shadow-md mt-8">
       <h1>Register Page</h1>
 
-        {registerErrors && (
+        {authErrors && (
             <div className="bg-red-500 text-white p-2 rounded-md mt-4">
-                {registerErrors?.message?.map((error, index) => (
+                {authErrors?.message?.map((error, index) => (
                     <p key={index}>{error}</p>
                 ))}
             </div>

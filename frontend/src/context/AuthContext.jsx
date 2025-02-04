@@ -15,11 +15,11 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [registerErrors, setRegisterErrors] = useState(null)
+  const [authErrors, setAuthErrors] = useState(null)
 
   const registerUser = async (data) => {
     setIsAuthenticated(false);
-    setRegisterErrors(null)
+    setAuthErrors(null)
 
     try {
       const response = await registerService(
@@ -35,13 +35,13 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log('errors', error?.response?.data);
-      setRegisterErrors(error?.response?.data);
+      setAuthErrors(error?.response?.data);
     }
   };
 
   const singUp = async (data) => {
     setIsAuthenticated(false);
-    setRegisterErrors(null)
+    setAuthErrors(null)
 
     try {
       const response = await loginService(
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log('errors', error?.response?.data);
-      setRegisterErrors(error?.response?.data);
+      setAuthErrors(error?.response?.data);
     }
   };
 
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
         singUp,
         user,
         isAuthenticated,
-        registerErrors
+        authErrors
       }}
     >
       {children}
