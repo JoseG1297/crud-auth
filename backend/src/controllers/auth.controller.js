@@ -11,6 +11,14 @@ export const register = async (req, res) => {
     
     try {
 
+        const userFound = await User.findOne({
+            email
+        });
+
+        if(userFound){
+          return  res.status(httpStatus.BAD_REQUEST).json({message: ['User already exists']});
+        }
+
        const passwordHash = await bcrypt.hash(password, 10);
 
         const newUser =  new User({
@@ -29,10 +37,9 @@ export const register = async (req, res) => {
             id: user._id
         }
 
-        res.header('authToken', token)
-        res.status(httpStatus.CREATED).json(jsResult);
+        return res.header('authToken', token).status(httpStatus.CREATED).json(jsResult);
     } catch (error) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error registering user' , error});
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: ['Error registering user'] , error});
     }
 }
 
@@ -45,13 +52,13 @@ export const login = async (req, res) => {
         });
 
         if(!user){
-            res.status(httpStatus.BAD_REQUEST).json({message: 'User not found'});
+            return res.status(httpStatus.BAD_REQUEST).json({message: ['User not found']});
         }
 
         const matchPassword = await bcrypt.compare(password, user.password);
 
         if(!matchPassword){
-            res.status(httpStatus.BAD_REQUEST).json({message: 'Invalid password'});
+            return res.status(httpStatus.BAD_REQUEST).json({message: ['Invalid password']});
         }
 
         const token = await createToken({id: user._id});
@@ -62,21 +69,19 @@ export const login = async (req, res) => {
             id: user._id
         }
 
-        res.header('authToken', token)
-        res.status(httpStatus.CREATED).json(jsResult);
+        return res.setHeader('authToken', token).status(httpStatus.CREATED).json(jsResult);
     }
     catch (error) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error logging in', error });
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: ['Error logging in'], error });
     }
 }
 
 
 export const logOut = async (req, res) => {
     try {
-        res.header('authToken', '');
-        res.status(httpStatus.OK).json({message: 'User logged out'});
+        return res.removeHeader('authToken').status(httpStatus.OK).json({message: 'User logged out'});
     } catch (error) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error logging out', error });
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: ['Error logging out'], error });
     }
 }
 
@@ -87,12 +92,11 @@ export const profile = async(req, res) => {
         const userFound = await User.findById(userData.id);
 
         if(!userFound){
-            res.status(httpStatus.BAD_REQUEST).json({message: 'User not found'});
+            return  res.status(httpStatus.BAD_REQUEST).json({message: ['User not found']});
         }
 
-        
-        res.status(httpStatus.OK).json(userFound);
+        return res.status(httpStatus.OK).json(userFound);
     } catch (error) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error profile', error });
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: ['Error profile'], error });
     }
 }

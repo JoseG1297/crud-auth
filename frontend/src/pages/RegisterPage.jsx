@@ -12,7 +12,7 @@ export const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const { singUp, isAuthenticated } = useAuth();
+  const { singUp, isAuthenticated, registerErrors } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,12 +32,20 @@ export const RegisterPage = () => {
     }
 
     singUp(data);
-    console.log(user);
   };
 
   return (
     <div className="form-container bg-zinc-800 max-w-md mx-auto p-4 rounded-md shadow-md mt-8">
       <h1>Register Page</h1>
+
+        {registerErrors && (
+            <div className="bg-red-500 text-white p-2 rounded-md mt-4">
+                {registerErrors?.message?.map((error, index) => (
+                    <p key={index}>{error}</p>
+                ))}
+            </div>
+        )}
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-4">
           <label htmlFor="name">Username</label>

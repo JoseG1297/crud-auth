@@ -15,20 +15,27 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [registerErrors, setRegisterErrors] = useState(null)
 
   const singUp = async (data) => {
+    setIsAuthenticated(false);
+    setRegisterErrors(null)
+
     try {
       const response = await registerService(
         data.username,
         data.email,
         data.password
       );
+      
       if (response) {
+        console.log('sussces', response?.data);
         setUser(response?.data);
         setIsAuthenticated(true);
       }
     } catch (error) {
-      console.log(error);
+      console.log('errors', error?.response?.data);
+      setRegisterErrors(error?.response?.data);
     }
   };
 
@@ -37,7 +44,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         singUp,
         user,
-        isAuthenticated
+        isAuthenticated,
+        registerErrors
       }}
     >
       {children}
