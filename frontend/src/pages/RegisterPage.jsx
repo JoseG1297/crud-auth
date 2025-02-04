@@ -1,5 +1,6 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import SweetAlert2 from "sweetalert2";
 
 import { useAuth } from "../context/AuthContext";
@@ -11,7 +12,14 @@ export const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const { singUp, user } = useAuth();
+  const { singUp, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/tasks");
+    }
+  }, [isAuthenticated]);
 
   const onSubmit = (data) => {
     if (data.password !== data.confirmPassword) {
@@ -39,6 +47,9 @@ export const RegisterPage = () => {
             className="border border-gray-300 p-2 rounded-md w-full text-black"
             {...register("username", { required: true })}
           />
+          {errors.username && (
+            <span className="text-red-500">This field is required</span>
+          )}
         </div>
         <div className="mt-4">
           <label htmlFor="email">Email Address</label>
@@ -48,6 +59,9 @@ export const RegisterPage = () => {
             className="border border-gray-300 p-2 rounded-md w-full text-black"
             {...register("email", { required: true })}
           />
+            {errors.email && (
+            <span className="text-red-500">This field is required</span>
+            )}
         </div>
         <div className="mt-4">
           <label htmlFor="password">Password</label>
@@ -57,6 +71,9 @@ export const RegisterPage = () => {
             className="border border-gray-300 p-2 rounded-md w-full text-black"
             {...register("password", { required: true })}
           />
+            {errors.password && (
+                <span className="text-red-500">This field is required</span>
+            )}
         </div>
         <div className="mt-4">
           <label htmlFor="confirmPassword">Confirm Password</label>
@@ -66,6 +83,9 @@ export const RegisterPage = () => {
             className="border border-gray-300 p-2 rounded-md w-full text-black"
             {...register("confirmPassword", { required: true })}
           />
+            {errors.confirmPassword && (
+                <span className="text-red-500">This field is required</span>
+            )}
         </div>
         <div className="mt-4">
           <button

@@ -14,14 +14,22 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const singUp = async (data) => {
-    let res = await registerService(
-      data?.username,
-      data?.email,
-      data?.password
-    );
-    setUser(res?.data);
+    try {
+      const response = await registerService(
+        data.username,
+        data.email,
+        data.password
+      );
+      if (response) {
+        setUser(response?.data);
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -29,6 +37,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         singUp,
         user,
+        isAuthenticated
       }}
     >
       {children}
