@@ -15,7 +15,6 @@ export const loginService = async (email, password) => {
 export const registerService = async (username, email, password) => {
     try {
         const response = await axios.post(`${apiRoot}/register`, { username, email, password });
-        debugger
         return response.data;
     } catch (error) {
         SweetAlert2.fire({

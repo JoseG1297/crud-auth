@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import SweetAlert2 from "sweetalert2";
 
-import { registerService } from "../api/auth.js";
+import { useAuth } from "../context/AuthContext";
 
 export const RegisterPage = () => {
   const {
@@ -11,7 +11,9 @@ export const RegisterPage = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const { singUp, user } = useAuth();
+
+  const onSubmit = (data) => {
     if (data.password !== data.confirmPassword) {
       SweetAlert2.fire({
         icon: "error",
@@ -21,8 +23,8 @@ export const RegisterPage = () => {
       return;
     }
 
-    let res = await registerService(data.username, data.email, data.password);
-    console.log(res);
+    singUp(data);
+    console.log(user);
   };
 
   return (
