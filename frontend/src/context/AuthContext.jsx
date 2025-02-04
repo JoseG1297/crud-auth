@@ -63,9 +63,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (authErrors) {
       console.log('authErrors', authErrors);
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setAuthErrors(null);
       }, 3000);
+      return () => clearTimeout(timer);
     }
   }, [authErrors]);
 
