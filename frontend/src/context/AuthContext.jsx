@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-import { registerService, loginService } from "../api/auth";
-import { setAuthData, clearAuthData } from "../slice/authSlice";
+import { useAuthReducer } from "../reducers/authReducer";
 
 export const AuthContext = createContext();
 
@@ -14,71 +13,26 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authErrors, setAuthErrors] = useState(null)
+  const { registerUser, singUp, authErrors, errors, isAuthenticated} = useAuthReducer();
 
-  const registerUser = async (data) => {
-    setIsAuthenticated(false);
-    setAuthErrors(null)
-
-    try {
-      const response = await registerService(
-        data.username,
-        data.email,
-        data.password
-      );
-      
-      if (response) {
-        console.log('sussces', response?.data);
-        setUser(response?.data);
-        setIsAuthenticated(true);
-      }
-    } catch (error) {
-      console.log('errors', error?.response?.data);
-      setAuthErrors(error?.response?.data);
-    }
-  };
-
-  const singUp = async (data) => {
-    setIsAuthenticated(false);
-    setAuthErrors(null)
-
-    try {
-      const response = await loginService(
-        data.email,
-        data.password
-      );
-      
-      if (response) {
-        console.log('sussces', response?.data);
-        setUser(response?.data);
-        setIsAuthenticated(true);
-      }
-    } catch (error) {
-      console.log('errors', error?.response?.data);
-      setAuthErrors(error?.response?.data);
-    }
-  };
 
   useEffect(() => {
-    if (authErrors) {
-      console.log('authErrors', authErrors);
+    if (errors) {
+      console.log('authErrors', errors);
       const timer = setTimeout(() => {
-        setAuthErrors(null);
+        authErrors(null);
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [authErrors]);
+  }, [errors]);
 
   return (
     <AuthContext.Provider
       value={{
         registerUser,
         singUp,
-        user,
         isAuthenticated,
-        authErrors
+        authErrors: errors,
       }}
     >
       {children}
