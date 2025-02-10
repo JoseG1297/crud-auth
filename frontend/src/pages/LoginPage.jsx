@@ -17,7 +17,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/tasks");
+      navigate("/home");
     }
   }, [isAuthenticated]);
 

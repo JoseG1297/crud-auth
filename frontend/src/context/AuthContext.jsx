@@ -17,8 +17,10 @@ export const AuthProvider = ({ children }) => {
     registerUser,
     singUp,
     setAuthErrorsReducer,
+    logoutReducer,
     errors,
     isAuthenticated,
+    authData
   } = useAuthReducer();
 
   useEffect(() => {
@@ -38,6 +40,8 @@ export const AuthProvider = ({ children }) => {
         singUp,
         isAuthenticated,
         authErrors: errors,
+        logoutReducer,
+        authData,
       }}
     >
       {children}
