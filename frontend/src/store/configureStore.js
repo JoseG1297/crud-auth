@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+
 import authDataReducer from "../slice/authSlice";
+import taskReducer from "../slice/taskSlice";
 
 const persistConfig = {
   key: "auth",
@@ -13,7 +15,7 @@ const persistedAuthReducer = persistReducer(persistConfig, authDataReducer);
 export const store = configureStore({
   reducer: {
     authData: persistedAuthReducer,
-    // otros reducers si los tienes
+    task: taskReducer
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>

@@ -1,9 +1,7 @@
 import axiosInstance from "./axios";
 
-const apiRoot = "http://localhost:3000/api";
-
 export const loginService = async (email, password) => {
-  const response = await axiosInstance.post(`${apiRoot}/login`, {
+  const response = await axiosInstance.post(`/login`, {
     email,
     password,
   });
@@ -11,7 +9,7 @@ export const loginService = async (email, password) => {
 };
 
 export const registerService = async (username, email, password) => {
-  const response = await axiosInstance.post(`${apiRoot}/register`, {
+  const response = await axiosInstance.post(`/register`, {
     username,
     email,
     password,
