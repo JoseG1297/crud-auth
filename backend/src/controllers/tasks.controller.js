@@ -1,91 +1,93 @@
-
 import Task from "../models/task.model.js";
 
-import { httpStatus } from '../libs/staticData.js';
+import { httpStatus } from "../libs/staticData.js";
 
 export const getTasks = async (req, res) => {
-    try {
-        const userId = req.userData.id;
+  try {
+    const userId = req.userData.id;
 
-        const tasks = await Task.find({user: userId}).populate('user');
+    const tasks = await Task.find({ user: userId }).populate("user");
 
-        if(!tasks){
-            res.status(httpStatus.BAD_REQUEST).json({message: 'Tasks not found'});
-        }
-
-        res.status(httpStatus.OK).json(tasks);
-
-    } catch (error) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error registering user' , error});
+    if (!tasks) {
+      return res
+        .status(httpStatus.BAD_REQUEST)
+        .json({ message: "Tasks not found" });
     }
-}
+
+    return res.status(httpStatus.OK).json(tasks);
+  } catch (error) {
+    return res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ message: "Error registering user", error });
+  }
+};
 
 export const getTaskById = async (req, res) => {
-    try {
+  try {
+    const taskId = req.params.id;
 
-        const taskId = req.params.id;
+    const taskFound = await Task.findById(taskId);
 
-        const taskFound = await Task.findById(taskId);
-        
-        if(!taskFound){
-            res.status(httpStatus.NOT_FOUND).json({message: 'Task not found'});
-        }
-
-        res.status(httpStatus.OK).json(taskFound);
-
-    } catch (error) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error registering task' , error});
+    if (!taskFound) {
+      return res
+        .status(httpStatus.NOT_FOUND)
+        .json({ message: "Task not found" });
     }
-}
+
+    return res.status(httpStatus.OK).json(taskFound);
+  } catch (error) {
+    return res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ message: "Error registering task", error });
+  }
+};
 
 export const createTask = async (req, res) => {
-    
-    const { tittle, description } = req.body
-    
-    try 
-    {
-        const userId = req.userData.id;
+  const { tittle, description } = req.body;
 
-        const newTask =  new Task({
-            tittle,
-            description,
-            user: userId
-        });
+  try {
+    const userId = req.userData.id;
 
-        const taskCreated = await newTask.save();
+    const newTask = new Task({
+      tittle,
+      description,
+      user: userId,
+    });
 
-        res.status(httpStatus.CREATED).json(taskCreated);
-    } 
-    catch (error) 
-    {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error registering task' , error});
-    }
-}
+    const taskCreated = await newTask.save();
 
+    return res.status(httpStatus.CREATED).json(taskCreated);
+  } catch (error) {
+    return res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ message: "Error registering task", error });
+  }
+};
 
 export const updateTask = async (req, res) => {
-    const { tittle, description } = req.body
-    
-    try 
-    {
-        const taskId = req.params.id;
-        const taskUpdated = await Task.findByIdAndUpdate(taskId, req.body, {
-            new: true
-        })
-        res.status(httpStatus.CREATED).json(taskUpdated);
-    } catch (error) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error update user task' , error: error});
-    }
-}
+  const { tittle, description } = req.body;
 
+  try {
+    const taskId = req.params.id;
+    const taskUpdated = await Task.findByIdAndUpdate(taskId, req.body, {
+      new: true,
+    });
+    return res.status(httpStatus.CREATED).json(taskUpdated);
+  } catch (error) {
+    return res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ message: "Error update user task", error: error });
+  }
+};
 
 export const deleteTask = async (req, res) => {
-    
-    try {
-        const taskId = req.params.id;
-        const taskDeleted = await Task.findByIdAndDelete(taskId, req.body)
-        res.status(httpStatus.CREATED).json(taskDeleted);
-    } catch (error) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Error delete task' , error});
-    }
-}
+  try {
+    const taskId = req.params.id;
+    const taskDeleted = await Task.findByIdAndDelete(taskId, req.body);
+    return res.status(httpStatus.CREATED).json(taskDeleted);
+  } catch (error) {
+    return res
+      .status(httpStatus.INTERNAL_SERVER_ERROR)
+      .json({ message: "Error delete task", error });
+  }
+};
