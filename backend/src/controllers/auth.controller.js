@@ -34,10 +34,11 @@ export const register = async (req, res) => {
         const jsResult = {
             username: user.username,
             email: user.email,
-            id: user._id
+            id: user._id,
+            authToken: token
         }
 
-        return res.header('authToken', token).status(httpStatus.CREATED).json(jsResult);
+        return res.status(httpStatus.CREATED).json(jsResult);
     } catch (error) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: ['Error registering user'] , error});
     }
@@ -66,10 +67,11 @@ export const login = async (req, res) => {
         const jsResult = {
             username: user.username,
             email: user.email,
-            id: user._id
+            id: user._id,
+            authToken: token
         }
 
-        return res.setHeader('authToken', token).status(httpStatus.CREATED).json(jsResult);
+        return res.status(httpStatus.CREATED).json(jsResult);
     }
     catch (error) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: ['Error logging in'], error });
