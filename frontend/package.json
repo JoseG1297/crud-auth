@@ -18,6 +18,7 @@
     "react-hook-form": "^7.54.2",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5",
+    "redux-persist": "^6.0.0",
     "swal": "^0.1.0",
     "sweetalert2": "^11.6.13"
   },
