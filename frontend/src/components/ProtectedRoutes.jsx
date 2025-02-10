@@ -6,11 +6,5 @@ export const ProtectedRoutes = () => {
 
     const {user, isAuthenticated} =  useAuth();
 
-    if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
-    }
-
-    return (
-        <Outlet />
-    );
-};
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+}

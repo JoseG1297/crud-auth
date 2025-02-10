@@ -16,12 +16,10 @@ export const useAuthReducer = () => {
         );
     
         if (response) {
-            console.log('sussces', response?.data);
-            dispatch(setAuthData(response?.data));
+            setAuthDataReducer(response?.data);
         }
         } catch (error) {
-            console.log('errors', error?.response?.data);
-            authErrors(error?.response?.data);
+            setAuthErrorsReducer(error?.response?.data);
         }
     };
     
@@ -33,20 +31,26 @@ export const useAuthReducer = () => {
         );
     
         if (response) {
-            console.log('sussces', response?.data);
-            dispatch(setAuthData(response?.data));
+            setAuthDataReducer(response?.data);
         }
         } catch (error) {
-            authErrors(error?.response?.data);
-        console.log('errors', error?.response?.data);
+            setAuthErrorsReducer(error?.response?.data);
         }
     };
-    const logout = () => {
+
+    const setAuthDataReducer = (data) => {
+        dispatch(setAuthData(data));
+        console.log('AuthData', data);
+    };
+
+    const logoutReducer = () => {
         dispatch(clearAuthData());
+        console.log('logout');
     };
     
-    const authErrors = (errors) => {
+    const setAuthErrorsReducer = (errors) => {
         dispatch(setAuthErrors(errors));
+        console.log('errors', errors);
     }
     
 
@@ -58,8 +62,8 @@ export const useAuthReducer = () => {
     return {
         registerUser,
         singUp,
-        logout,
-        authErrors,
+        logoutReducer,
+        setAuthErrorsReducer,
         errors,
         authData,
         isAuthenticated,
