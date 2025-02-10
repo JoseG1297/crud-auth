@@ -13,12 +13,17 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const { registerUser, singUp, setAuthErrorsReducer, errors, isAuthenticated} = useAuthReducer();
-
+  const {
+    registerUser,
+    singUp,
+    setAuthErrorsReducer,
+    errors,
+    isAuthenticated,
+  } = useAuthReducer();
 
   useEffect(() => {
     if (errors) {
-      console.log('authErrors', errors);
+      console.log("authErrors", errors);
       const timer = setTimeout(() => {
         setAuthErrorsReducer(null);
       }, 3000);
