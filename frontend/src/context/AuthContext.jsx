@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 import { registerService, loginService } from "../api/auth";
+import { setAuthData, clearAuthData } from "../slice/authSlice";
 
 export const AuthContext = createContext();
 

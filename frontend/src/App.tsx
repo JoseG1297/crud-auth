@@ -11,29 +11,34 @@ import { TasksPage } from "./pages/TasksPage";
 
 
 import { AuthProvider } from "./context/AuthContext"
-
 import { ProtectedRoutes } from "./components/ProtectedRoutes"
+
+
+import { store } from "./store/configureStore";
+import { Provider } from "react-redux";
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<h1>Home</h1>} />
-          <Route path="/login" element={<LoginPage/>} />
-          <Route path="/register" element={<RegisterPage/>} />
+    <Provider store={store}>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<h1>Home</h1>} />
+            <Route path="/login" element={<LoginPage/>} />
+            <Route path="/register" element={<RegisterPage/>} />
 
-          <Route element={<ProtectedRoutes/>}>
-            <Route path="/profile" element={<ProfilePage/>} />
-            <Route path="/tasks" element={<TasksPage/>} />
-            <Route path="/task-form" element={<TaskFormPage/>} />
-            <Route path="/" element={<HomePage/>} />
-          </Route>
+            <Route element={<ProtectedRoutes/>}>
+              <Route path="/profile" element={<ProfilePage/>} />
+              <Route path="/tasks" element={<TasksPage/>} />
+              <Route path="/task-form" element={<TaskFormPage/>} />
+              <Route path="/" element={<HomePage/>} />
+            </Route>
 
-          <Route path="*" element={<h1>Not found</h1>} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+            <Route path="*" element={<h1>Not found</h1>} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </Provider>
   )
 }
 
