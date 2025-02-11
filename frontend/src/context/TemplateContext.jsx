@@ -26,10 +26,7 @@ export const TemplateProvider = ({ children }) => {
           <div className="bg-gray-200 w-64 p-4">
             <ul className="space-y-4">
               <li>
-                <Link
-                  to="/home"
-                  className="text-gray-700 hover:text-gray-900"
-                >
+                <Link to="/home" className="text-gray-700 hover:text-gray-900">
                   Home
                 </Link>
               </li>
@@ -44,14 +41,6 @@ export const TemplateProvider = ({ children }) => {
               <li>
                 <Link to="/tasks" className="text-gray-700 hover:text-gray-900">
                   Tasks
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/task-form"
-                  className="text-gray-700 hover:text-gray-900"
-                >
-                  Task Form
                 </Link>
               </li>
             </ul>

@@ -15,7 +15,7 @@ const persistedAuthReducer = persistReducer(persistConfig, authDataReducer);
 export const store = configureStore({
   reducer: {
     authData: persistedAuthReducer,
-    task: taskReducer
+    taskData: taskReducer
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>
