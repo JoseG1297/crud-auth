@@ -2,8 +2,8 @@ import {date, z} from 'zod'
 
 
 export const taskSchema = z.object({
-    tittle: z.string({
-        required_error: 'tittle is requiered'
+    title: z.string({
+        required_error: 'title is requiered'
     }).
     min(6, {
         message:"title must be at least 6 characters"

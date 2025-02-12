@@ -43,13 +43,13 @@ export const getTaskById = async (req, res) => {
 };
 
 export const createTask = async (req, res) => {
-  const { tittle, description } = req.body;
+  const { title, description } = req.body;
 
   try {
     const userId = req.userData.id;
 
     const newTask = new Task({
-      tittle,
+      title,
       description,
       user: userId,
     });
@@ -65,7 +65,7 @@ export const createTask = async (req, res) => {
 };
 
 export const updateTask = async (req, res) => {
-  const { tittle, description } = req.body;
+  const { title, description } = req.body;
 
   try {
     const taskId = req.params.id;
