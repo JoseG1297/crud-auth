@@ -13,9 +13,16 @@ export const useTaskContext = () => {
 };
 
 export const TaskProvider = ({ children }) => {
-
-  const { getTasks, createTask, updateTask, deleteTask, setTask, clearTask, setTaskErrors, errors } = useTaskReducer();
-
+  const {
+    getTasks,
+    createTask,
+    updateTask,
+    deleteTask,
+    setTask,
+    clearTask,
+    setTaskErrors,
+    errors,
+  } = useTaskReducer();
 
   useEffect(() => {
     if (errors) {
@@ -39,7 +46,14 @@ export const TaskProvider = ({ children }) => {
         errors,
       }}
     >
-      {children}
+      <div className="relative h-[400px] bg-gradient-to-tr from-indigo-600 via-indigo-700 to-violet-800">
+        <div className="flex flex-col gap-4  w-full h-full md:px-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+            Tasks Form
+          </h1>
+          {children}
+        </div>
+      </div>
     </TaskContext.Provider>
   );
 };

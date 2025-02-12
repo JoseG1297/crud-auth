@@ -4,7 +4,7 @@ import { httpStatus } from '../libs/staticData.js';
 export const authRequired = async (req, res, next) => {
     try
     {
-        const headersToken = req.get('authToken');
+        const headersToken = req.get('Authtoken');
     
         if(!headersToken){
             return res.status(httpStatus.BAD_REQUEST).json({message: 'No token autorization '});
