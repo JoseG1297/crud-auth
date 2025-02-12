@@ -22,6 +22,8 @@ export const TaskProvider = ({ children }) => {
     clearTask,
     setTaskErrors,
     errors,
+    tasks,
+    task
   } = useTaskReducer();
 
   useEffect(() => {
@@ -44,11 +46,13 @@ export const TaskProvider = ({ children }) => {
         setTask,
         clearTask,
         errors,
+        taskList: tasks,
+        task
       }}
     >
-      <div className="relative h-[400px] bg-gradient-to-tr from-indigo-600 via-indigo-700 to-violet-800">
+      <div className="bg-gradient-to-tr from-indigo-600 via-indigo-700 to-violet-800 rounded-lg shadow-lg">
         <div className="flex flex-col gap-4  w-full h-full md:px-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 mb-4 text-center">
             Tasks Form
           </h1>
           {children}
