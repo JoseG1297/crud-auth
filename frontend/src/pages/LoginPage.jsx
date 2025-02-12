@@ -26,56 +26,67 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="form-container bg-zinc-800 max-w-md mx-auto p-4 rounded-md shadow-md mt-8">
-      <h1>Login Page</h1>
-
-      {authErrors && (
-        <div className="bg-red-500 text-white p-2 rounded-md mt-4">
-          {authErrors?.message?.map((error, index) => (
-            <p key={index}>{error}</p>
-          ))}
+    <div className="hero bg-base-200 min-h-screen">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="text-center lg:text-left">
+          <h1 className="text-5xl font-bold">Login now!</h1>
+          <p className="py-6">
+            Crud operations with tasks, login and register with JWT
+          </p>
+          <p>
+            React, Node, Express and MongoDB. Tailwind CSS (plugin daisyui) and React Hook Form.
+          </p>
         </div>
-      )}
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-4">
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            placeholder="Enter email"
-            className="border border-gray-300 p-2 rounded-md w-full text-black"
-            {...register("email", { required: true })}
-          />
-          {errors.email && (
-            <span className="text-red-500">This field is required</span>
+        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+          {authErrors && (
+            <div className="bg-red-500 text-white p-2 rounded-md mt-4">
+              {authErrors?.message?.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
           )}
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                placeholder="email"
+                className="input input-bordered"
+                {...register("email", { required: true })}
+              />
+              {errors.email && (
+                <span className="text-red-500">This field is required</span>
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="password"
+                className="input input-bordered"
+                {...register("password", { required: true })}
+              />
+              {errors.password && (
+                <span className="text-red-500">This field is required</span>
+              )}
+              <label className="label">
+                <Link to="/register" className="text-blue-500">
+                  Create an account
+                </Link>
+              </label>
+            </div>
+            <div className="form-control mt-6">
+              <button type="submit" className="btn btn-primary">
+                Login
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="mt-4">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            className="border border-gray-300 p-2 rounded-md w-full text-black"
-            {...register("password", { required: true })}
-          />
-          {errors.password && (
-            <span className="text-red-500">This field is required</span>
-          )}
-        </div>
-        <div className="mt-4">
-          <button
-            type="submit"
-            className="bg-zinc-500 text-white p-2 rounded-md w-full"
-          >
-            Log in
-          </button>
-        </div>
-      </form>
-        <div className="mt-4">
-            <Link to="/register" className="text-blue-500">
-            Create an account
-            </Link>
-        </div>
+      </div>
     </div>
   );
 };
