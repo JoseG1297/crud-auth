@@ -35,80 +35,92 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="form-container bg-zinc-800 max-w-md mx-auto p-4 rounded-md shadow-md mt-8">
-      <h1>Register Page</h1>
-
-        {authErrors && (
+    <div className="hero bg-base-200 min-h-screen">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="text-center lg:text-left">
+          <h1 className="text-5xl font-bold">Register now!</h1>
+          <p className="py-6">
+            Registrate y prueba nuestra aplicación. Genara nuevas tareas{" "}
+          </p>
+        </div>
+        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+          {authErrors && (
             <div className="bg-red-500 text-white p-2 rounded-md mt-4">
-                {authErrors?.message?.map((error, index) => (
-                    <p key={index}>{error}</p>
-                ))}
+              {authErrors?.message?.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
             </div>
-        )}
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-4">
-          <label htmlFor="name">Username</label>
-          <input
-            type="text"
-            placeholder="Enter username"
-            className="border border-gray-300 p-2 rounded-md w-full text-black"
-            {...register("username", { required: true })}
-          />
-          {errors.username && (
-            <span className="text-red-500">This field is required</span>
           )}
-        </div>
-        <div className="mt-4">
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            placeholder="Enter email"
-            className="border border-gray-300 p-2 rounded-md w-full text-black"
-            {...register("email", { required: true })}
-          />
-            {errors.email && (
-            <span className="text-red-500">This field is required</span>
-            )}
-        </div>
-        <div className="mt-4">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            className="border border-gray-300 p-2 rounded-md w-full text-black"
-            {...register("password", { required: true })}
-          />
-            {errors.password && (
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Username</span>
+              </label>
+              <input
+                type="text"
+                placeholder="username"
+                className="input input-bordered"
+                {...register("username", { required: true })}
+              />
+              {errors.username && (
                 <span className="text-red-500">This field is required</span>
-            )}
-        </div>
-        <div className="mt-4">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            placeholder="Confirm password"
-            className="border border-gray-300 p-2 rounded-md w-full text-black"
-            {...register("confirmPassword", { required: true })}
-          />
-            {errors.confirmPassword && (
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                placeholder="email"
+                className="input input-bordered"
+                {...register("email", { required: true })}
+              />
+              {errors.email && (
                 <span className="text-red-500">This field is required</span>
-            )}
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="password"
+                className="input input-bordered"
+                {...register("password", { required: true })}
+              />
+              {errors.password && (
+                <span className="text-red-500">This field is required</span>
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Confirm Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="confirm password"
+                className="input input-bordered"
+                {...register("confirmPassword", { required: true })}
+              />
+              {errors.confirmPassword && (
+                <span className="text-red-500">This field is required</span>
+              )}
+              <div className="mt-4">
+                  <Link to="/login" className="text-blue-500">
+                  Already have an account? Login
+                  </Link>
+              </div>
+            </div>
+            <div className="form-control mt-6">
+              <button type="submit" className="btn btn-primary">
+                Register
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="mt-4">
-          <button
-            type="submit"
-            className="bg-zinc-500 text-white p-2 rounded-md w-full"
-          >
-            Register
-          </button>
-        </div>
-      </form>
-        <div className="mt-4">
-            <Link to="/login" className="text-blue-500">
-            Already have an account? Login
-            </Link>
-        </div>
+      </div>
     </div>
   );
 };
