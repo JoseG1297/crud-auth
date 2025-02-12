@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 import { useTaskReducer } from "../reducers/taskReducer";
+import { current } from "@reduxjs/toolkit";
 
 export const TaskContext = createContext();
 
@@ -18,8 +19,8 @@ export const TaskProvider = ({ children }) => {
     createTask,
     updateTask,
     deleteTask,
-    setTask,
-    clearTask,
+    setTaskReducer,
+    clearTaskReducer,
     setTaskErrors,
     errors,
     tasks,
@@ -43,11 +44,11 @@ export const TaskProvider = ({ children }) => {
         createTask,
         updateTask,
         deleteTask,
-        setTask,
-        clearTask,
+        setCurrentTask: setTaskReducer,
+        clearTask: clearTaskReducer,
         errors,
         taskList: tasks,
-        task
+        currentTask: task
       }}
     >
       <div className="bg-gradient-to-tr from-indigo-600 via-indigo-700 to-violet-800 rounded-lg shadow-lg">

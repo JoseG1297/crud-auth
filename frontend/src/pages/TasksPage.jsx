@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 export const TasksPage = () => {
   const navigate = useNavigate();
 
-  const { getTasks, deleteTask, setTask, taskList } = useTaskContext();
+  const { getTasks, deleteTask, setCurrentTask, taskList } = useTaskContext();
 
   useEffect(() => {
     handleReloadTasks();
@@ -19,11 +19,16 @@ export const TasksPage = () => {
     navigate("/tasks/new");
   };
 
-  const handleEditTask = () => {};
+  const handleEditTask = (task) => {
+    setCurrentTask(task);
+    navigate(`/tasks/edit/${task._id}`);
+  };
 
-  const handleDeleteTask = () => {};
+  const handleDeleteTask = (id) => {
+    deleteTask(id);
+    getTasks();
+  };
 
-  console.log("taskList", taskList);
   return (
     <div className="flex flex-col gap-4 w-full h-full mb-10 ">
       <h2 className="text-gray-300 ">Lista de tareas generadas</h2>
@@ -74,13 +79,13 @@ export const TasksPage = () => {
                   </td>
                   <td className="py-4 px-6 border-b border-gray-200">
                     <button
-                      onClick={() => setTask(task)}
+                      onClick={() => handleEditTask(task)}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => deleteTask(task.id)}
+                      onClick={() => deleteTask(task._id)}
                       className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     >
                       Delete

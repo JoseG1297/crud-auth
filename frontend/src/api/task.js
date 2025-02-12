@@ -11,7 +11,7 @@ export const createTaskService = async (task) => {
 }
 
 export const updateTaskService = async (task) => {
-    const response = await axiosInstance.put(`/tasks/${task.id}`, task);
+    const response = await axiosInstance.put(`/tasks/${task._id}`, task);
     return response;
 }
 

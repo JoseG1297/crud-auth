@@ -21,7 +21,7 @@ export const TaskFormPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (task?.id) {
+    if (task?._id) {
       updateTask(task);
     } else {
       createTask(task);
@@ -31,7 +31,7 @@ export const TaskFormPage = () => {
   return (
     <div className="flex flex-col gap-4 w-full h-full mb-10 ">
       <h2 className="text-gray-300 ">
-        {task.id ? "Edit Task" : "Create a new Task"}
+        {task._id ? "Edit Task" : "Create a new Task"}
       </h2>
       <div className="flex justify-between items-center">
         <button
@@ -87,7 +87,7 @@ export const TaskFormPage = () => {
         </div>
         <div className="flex justify-end">
           <button type="submit" className="btn btn-primary">
-            {task.id ? "Update Task" : "Add Task"}
+            {task._id ? "Update Task" : "Add Task"}
           </button>
         </div>
       </form>
