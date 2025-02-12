@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
-import { useTaskContext } from "../context/TaskContext";
 import { useNavigate, Link } from "react-router-dom";
+import moment from "moment";
+import { useTaskContext } from "../context/TaskContext";
 
 export const TasksPage = () => {
   const navigate = useNavigate();
@@ -60,6 +61,9 @@ export const TasksPage = () => {
                 Created Date
               </th>
               <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold">
+                Updated Date
+              </th>
+              <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold">
                 Actions
               </th>
             </tr>
@@ -75,7 +79,10 @@ export const TasksPage = () => {
                     {task?.description}
                   </td>
                   <td className="py-4 px-6 border-b border-gray-200">
-                    {task?.createdAt}
+                    {moment(task?.createdAt).format("DD/MM/YYYY HH:mm:ss")}
+                  </td>
+                  <td className="py-4 px-6 border-b border-gray-200">
+                    {moment(task?.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
                   </td>
                   <td className="py-4 px-6 border-b border-gray-200">
                     <button
