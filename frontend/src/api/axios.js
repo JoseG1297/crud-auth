@@ -5,7 +5,7 @@ import { store } from '../store/configureStore';
 
 // Crear una instancia axios que agregue por default un header con el token de autenticacion, obtenido del redux store
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "http://localhost:4000/api",
   headers: {
     "Content-Type": "application/json",
   },
